@@ -17,35 +17,36 @@ public class MapEditor
     [MenuItem("Tools/GenerateMap %#g")]
     private static void GenerateMap()
     {
-        GameObject go = GameObject.Find("Map");
-        if (go != null)
-            return;
+        // Map 오브젝트 내에 있는 모든 게임오브젝트 로드
+        GameObject[] gameObjects = Resources.LoadAll<GameObject>("Prefabs/Map");
 
-        Tilemap tm = Util.FindChild<Tilemap>(go, "Tilemap_Collision", true);
-        if (tm != null)
-            return;
-        
-        using (var writer = File.CreateText("Assets/Resources/Map/output.txt"))
+        foreach (GameObject go in gameObjects)
         {
-            writer.WriteLine(tm.cellBounds.xMin);
-            writer.WriteLine(tm.cellBounds.xMax);
-            writer.WriteLine(tm.cellBounds.yMin);
-            writer.WriteLine(tm.cellBounds.yMax);
+            Tilemap tm = Util.FindChild<Tilemap>(go, "Tilemap_Collision", true);
 
-            for(int y = tm.cellBounds.yMin; y >= tm.cellBounds.yMax; y--)
+            using (var writer = File.CreateText($"Assets/Resources/Map/{go.name}.txt"))
             {
-                for(int x = tm.cellBounds.xMin; x <= tm.cellBounds.xMax; x++)
-                {
-                    TileBase tile = tm.GetTile(new Vector3Int(x, y, 0));
-                    if (tile != null)
-                        writer.Write("1");
-                    else
-                        writer.Write("0");
-                }
-                writer.WriteLine();
-            }
+                writer.WriteLine(tm.cellBounds.xMin);
+                writer.WriteLine(tm.cellBounds.xMax);
+                writer.WriteLine(tm.cellBounds.yMin);
+                writer.WriteLine(tm.cellBounds.yMax);
 
+                for (int y = tm.cellBounds.yMin; y <= tm.cellBounds.yMax; y++)
+                {
+                    for (int x = tm.cellBounds.xMin; x <= tm.cellBounds.xMax; x++)
+                    {
+                        TileBase tile = tm.GetTile(new Vector3Int(x, y, 0));
+                        if (tile != null)
+                            writer.Write("1");
+                        else
+                            writer.Write("0");
+                    }
+                    writer.WriteLine();
+                }
+
+            }
         }
+        
     }
 
 #endif
