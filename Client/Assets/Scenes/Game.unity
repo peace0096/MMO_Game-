@@ -500,6 +500,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37eb691255cd18241ba20c44697a90af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tilemap: {fileID: 1299582109}
+  _tileBase: {fileID: 11400000, guid: b8f1ec7559b1b8042816fdb40434d492, type: 2}
 --- !u!483693784 &1299582108
 TilemapRenderer:
   m_ObjectHideFlags: 0
