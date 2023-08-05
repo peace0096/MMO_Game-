@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using static Define;
 
-public class PlayerController : CreatureController
+public class MonsterController : CreatureController
 {
-
     protected override void Init()
     {
         base.Init();
@@ -14,7 +12,7 @@ public class PlayerController : CreatureController
 
     protected override void UpdateController()
     {
-        GetDirInput();
+        // GetDirInput();
         base.UpdateController();
     }
 
@@ -47,5 +45,4 @@ public class PlayerController : CreatureController
             Dir = MoveDir.None;
         }
     }
-
 }
