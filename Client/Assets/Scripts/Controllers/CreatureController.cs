@@ -10,7 +10,7 @@ public class CreatureController : MonoBehaviour
     public float _speed = 5.0f;
 
     // 직접 정의했음. Define 파일 참고
-    protected Vector3Int _cellPos = Vector3Int.zero;
+    public Vector3Int CellPos { get; set; } = Vector3Int.zero;
     protected Animator _animator;
     protected SpriteRenderer _sprite;
 
@@ -32,6 +32,14 @@ public class CreatureController : MonoBehaviour
 
     MoveDir _dir = MoveDir.Down;
     MoveDir _lastDir = MoveDir.Down;
+
+    protected virtual void Init()
+    {
+        _animator = GetComponent<Animator>();
+        _sprite = GetComponent<SpriteRenderer>();
+        Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 0.5f);
+        transform.position = pos;
+    }
 
     public MoveDir Dir
     {
@@ -125,14 +133,6 @@ public class CreatureController : MonoBehaviour
         UpdateController();
     }
 
-    protected virtual void Init()
-    {
-        _animator = GetComponent<Animator>();
-        _sprite = GetComponent<SpriteRenderer>();
-        Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(_cellPos) + new Vector3(0.5f, 0.5f);
-        transform.position = pos;
-    }
-
     protected virtual void UpdateController()
     {
         UpdatePosition();
@@ -145,9 +145,7 @@ public class CreatureController : MonoBehaviour
         if (State != CreatureState.Moving)
             return;
 
-        Vector3 destPos = Managers.Map.CurrentGrid
-
-       .CellToWorld(_cellPos) + new Vector3(0.5f, 0.5f);    // 이동 목적지
+        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 0.5f);    // 이동 목적지
         Vector3 moveDir = destPos - transform.position;                             // 방향 벡터
 
         // 도착 여부 체크. moveDir.magnitude는 방향벡터의 크기 = 이동거리
@@ -176,7 +174,7 @@ public class CreatureController : MonoBehaviour
     {
         if (State == CreatureState.Idle && _dir != MoveDir.None)
         {
-            Vector3Int destPos = _cellPos;
+            Vector3Int destPos = CellPos;
 
             switch (_dir)
             {
@@ -194,10 +192,15 @@ public class CreatureController : MonoBehaviour
                     break;
             }
 
+            State = CreatureState.Moving;
             if (Managers.Map.CanGo(destPos))
             {
-                _cellPos = destPos;
-                State = CreatureState.Moving;
+                if(Managers.Object.Find(destPos) == null)
+                {
+                    CellPos = destPos;
+                    
+                }
+ 
             }
         }
     }

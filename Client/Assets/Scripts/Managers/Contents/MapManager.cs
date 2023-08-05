@@ -18,6 +18,7 @@ public class MapManager
     // 읽어온 맵 구조를 여기에 표기할 예정
     bool[,] _collision;
 
+    // 갈 수 있는지 판단.
     public bool CanGo(Vector3Int cellPos)
     {
         if(cellPos.x < MinX || cellPos.x > MaxX)
