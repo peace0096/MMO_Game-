@@ -33,7 +33,7 @@ public class MapEditor
                 writer.WriteLine(tmBase.cellBounds.yMin);
                 writer.WriteLine(tmBase.cellBounds.yMax);
 
-                for (int y = tmBase.cellBounds.yMin; y <= tmBase.cellBounds.yMax; y++)
+                for (int y = tmBase.cellBounds.yMax; y >= tmBase.cellBounds.yMin; y--)
                 {
                     for (int x = tmBase.cellBounds.xMin; x <= tmBase.cellBounds.xMax; x++)
                     {

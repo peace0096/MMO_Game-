@@ -24,8 +24,8 @@ public class GameScene : BaseScene
             // 랜덤위치 스폰. 겹쳐도 괜찮다.
             Vector3Int pos = new Vector3Int()
             {
-                x = Random.Range(-20, 20),
-                y = Random.Range(-10, 10)
+                x = Random.Range(-10, 10),
+                y = Random.Range(-6, 6)
             };
 
             MonsterController mc = monster.GetComponent<MonsterController>();

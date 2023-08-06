@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 
@@ -23,7 +24,7 @@ public class MapManager
     {
         if(cellPos.x < MinX || cellPos.x > MaxX)
             return false;
-        if (cellPos.x < MinY || cellPos.x > MaxY)
+        if (cellPos.y < MinY || cellPos.y > MaxY)
             return false;
 
         int x = cellPos.x - MinX;
