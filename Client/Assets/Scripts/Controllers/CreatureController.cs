@@ -7,6 +7,7 @@ public class CreatureController : MonoBehaviour
 {
     // 그리드 정보를 얻어올 수 없음.
     //public Grid _grid;
+    [SerializeField]
     public float _speed = 5.0f;
 
     // 직접 정의했음. Define 파일 참고
@@ -14,6 +15,7 @@ public class CreatureController : MonoBehaviour
     protected Animator _animator;
     protected SpriteRenderer _sprite;
 
+    [SerializeField]
     protected CreatureState _state = CreatureState.Idle;
     public virtual CreatureState State
     {
@@ -31,6 +33,7 @@ public class CreatureController : MonoBehaviour
     }
 
     protected MoveDir _dir = MoveDir.Down;
+    [SerializeField]
     protected MoveDir _lastDir = MoveDir.Down;
 
     protected virtual void Init()
