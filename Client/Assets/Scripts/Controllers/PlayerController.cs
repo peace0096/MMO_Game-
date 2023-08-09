@@ -200,4 +200,9 @@ public class PlayerController : CreatureController
         _coSkill = null;
     }
 
+    public override void OnDamaged()
+    {
+        Debug.Log("Player Hit !");
+    }
+
 }
